@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+  }
+  .container > * {
+    width: 100%;
+  }
+  .container > button {
+      width: 20% !important;
+  }
+  
+  .invalido {
+    color: red;
+  }

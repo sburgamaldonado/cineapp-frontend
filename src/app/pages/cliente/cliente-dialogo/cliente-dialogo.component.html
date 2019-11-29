@@ -1,0 +1,67 @@
+<form [formGroup]="form" (ngSubmit)="operar()" #frmCliente="ngForm">
+    <mat-tab-group>
+  
+      <mat-tab label="Datos Personales">
+        <div class="container">
+          <mat-form-field>
+            <input matInput placeholder="Nombres" formControlName="nombres">
+            <mat-error *ngIf="f.nombres.errors?.minlength" class="invalido">El nombre debe tener mínimo 3 gíditos</mat-error> 
+            <mat-error *ngIf="f.nombres.errors?.required" class="invalido">Nombre es requerido</mat-error>
+            <!--
+            <div *ngIf="f.nombres.errors?.minlength" class="invalido">El nombre debe tener mínimo 3 gíditos</div> 
+            <div *ngIf="f.nombres.errors?.required" class="invalido">Nombre es requerido</div>
+            -->
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput placeholder="Apellidos" formControlName="apellidos">
+            <mat-error *ngIf="f.apellidos.errors?.minlength" class="invalido">El apellido debe tener mínimo 3 gíditos</mat-error>
+            <mat-error *ngIf="f.apellidos.errors?.required" class="invalido">Apellido es requerido</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput  placeholder="DNI" maxlength="8" formControlName="dni">
+            <mat-error *ngIf="f.dni.errors?.required" class="invalido">El número de DNI es requerido</mat-error>
+            <mat-error *ngIf="f.dni.errors?.pattern" class="invalido">El DNI ingresado debe númerico y de una longitud de 8 dígitos.</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker" placeholder="Fecha Nacimiento" [max]="maxFecha" formControlName="fechaNac">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+  
+          <button mat-button color="primary"
+            onclick="event.preventDefault();document.getElementById('flArchivo').click()">Seleccionar
+            archivo</button>
+          <input id="flArchivo" type="file" (change)="selectFile($event)" style="display:none;">
+  
+          <img mat-card-image [src]="imagenData" *ngIf="imagenEstado" width="50%" height="50%" />
+          <p>{{labelFile}}</p>
+        </div>
+      </mat-tab>
+  
+      <mat-tab label="Datos del Usuario">
+        <div class="container">
+          <mat-form-field>
+            <input matInput [readonly]="nuevo" placeholder="Nombre de Usuario" formControlName="usuario">
+            <mat-error *ngIf="f.usuario.errors?.minlength" class="invalido">El usuario debe tener mínimo 3 gíditos</mat-error>
+            <mat-error *ngIf="f.usuario.errors?.required" class="invalido">El Usuario es requerido</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="password" name="password" placeholder="Contraseña" formControlName="password" required>
+            <mat-error *ngIf="f.password.errors?.minlength" class="invalido">El clave debe tener mínimo 3 gíditos</mat-error>
+            <mat-error *ngIf="f.password.errors?.required" class="invalido">La contraseña es requerido</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="password" placeholder="Repetir contraseña" formControlName="confirmPassword" required>
+            <mat-error *ngIf="f.confirmPassword.errors?.required" class="invalido">La contraseña es requerido</mat-error>
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" type="submit" [disabled]="frmCliente.invalid">Registrar</button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
